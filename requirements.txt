@@ -1,0 +1,5 @@
+Django==5.0.4
+pandas==2.2.3
+pyModbusTCP==0.2.1
+pyModbusTCP==0.3.0
+reportlab==4.1.0
