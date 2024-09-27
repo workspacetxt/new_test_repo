@@ -1,0 +1,541 @@
+<DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+      <meta charset="UTF-8" />
+        
+      <title>Technoviz Automation</title>
+      {% load static %}
+      <link rel="shortcut icon" type="image/png" href="{% static 'images/Logo.png' %}">
+      <link rel="stylesheet" href="{% static 'css/home.css' %}">
+      <!-- Boxicons CDN Link -->
+      <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+    
+      
+      <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/t-radar"></script>
+      {% comment %} <meta http-equiv="refresh" content="30">  {% endcomment %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <style>
+      
+    </style>  
+    
+    <body>
+        <nav class="sidebar close">
+            <header>
+                <div class="image-text">
+                    <span class="image">
+                        <img src="{% static 'images/logo-.png'%}" alt="">
+                    </span>
+                    <div class="text logo-text">
+                        <span class="name">TechnoViz </span>
+                        <span class="profession">AUTOMATION</span>
+                    </div>
+                </div>
+                <i class='bx bx-chevron-right toggle'></i>
+            </header>
+    
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                      <li class="nav-link">
+                        <a href="{% url 'HomePage' %}">
+                          <i class='bx bx-detail icon'></i>
+                            <span class="text nav-text">0B Leakage Zone</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                      <a href="{% url 'leaktestfunc' %}">
+                        <i class='bx bx-detail icon'></i>
+                          <span class="text nav-text">Fuel Tank Leak Test</span>
+                      </a>
+                     </li>
+                    <li class="nav-link">
+                 
+                        <a href="{% url 'ReportPage' %}">
+                        <i class="bx bx-pie-chart-alt-2 icon"></i>
+                          <span class="text nav-text">Report </span>
+                      </a>
+                    </li>
+                        <li class="nav-link">
+                            <a href="https://technovizautomation.com/">
+                                <i class='bx bx-question-mark icon'></i>
+                                <span class="text nav-text">About Us</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="bottom-content">
+    
+                    <li class="mode">
+                        <div class="sun-moon">
+                            <i class='bx bx-moon icon moon'></i>
+                            <i class='bx bx-sun icon sun'></i>
+                        </div>
+                        <span class="mode-text text">Dark mode</span>
+    
+                        <div class="toggle-switch">
+                            <span class="switch"></span>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    
+    
+        <section class="home">
+          <div class="formdiv">
+    
+            <h3 class="shift">0B Leakage Zone Wise</h3>
+            <div class="techlogo">
+              <img class="image10" src="{% static 'images/Technoviz.png' %}">
+            </div>
+            <div class="hondalogo">
+              <img class="image6" src="{% static 'images/logo(1).png' %}">
+            </div>
+            <div class="form-style-10">
+      
+                <form id="shiftForm1" method="POST" action="{% url 'Detailform' %}">
+                {% csrf_token %}
+                <div class="navlogo">
+                  <img class="image2" src="{% static 'images/fuel-tank1.png' %}">
+                </div>
+                <div class="inner-wrap">
+                  <label class="lableA">A Zone<input type="text" name="field1" id="Azone"  /></label>
+                  <label class="lableB">B Zone<input type="text" name="field2" id="Bzone" /></label>
+                  <label class="lableC">C Zone<input type="text" name="field3" id="Czone" /></label>
+                  <label class="lableD">D Zone<input type="text" name="field4" id="Dzone" /></label> 
+                  <label class="lableE">E Zone<input type="text" name="field5" id="Ezone" /></label>
+                  <label class="lableF">F Zone<input type="text" name="field6" id="Fzone" /></label>
+                  <div class="g-zone-container">
+                    <label class="lableG">G Zone<input type="text" name="field7" id="Gzone" /></label>
+                </div>
+                </div>
+                <div class="button-section">
+                  <input type="hidden" name="timeDifference" id="timeDifference" value="{{ checking }}">
+                  {% comment %} <input type="submit" name="Sign Up" /> {% endcomment %}
+                  <button class="tub" onclick="openPopupForm(); return false;">Submit</button>
+                </div>
+                
+                <br>
+              </form>
+              <div id="popupFormA" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormA()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>OB Leakage Zone A</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputA"/>
+                      {% comment %} <input class="fname" type="text" name="desc" placeholder="Description" id="fnameInput" /> {% endcomment %}
+                    </div>   
+                    <button type="button" id="formfill2" onclick="submitPopupFormA()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormB" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormB()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>OB Leakage Zone B</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder=""id="fnameInputB" />
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormB()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormC" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormC()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>OB Leakage Zone C</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputC" />
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormC()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormD" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormD()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>0B Leakage Zone D</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputD"/>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormD()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormE" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormE()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>0B Leakage Zone E</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputE"/>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormE()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormF" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormF()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>0B Leakage Zone F</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputF"/>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormF()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormG" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormG()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>0B Leakage Zone G</h2>
+                    <div>
+                      <label>Holes:</lable>
+                      <input class="fname" type="number" name="desc" placeholder="" id="fnameInputG"/>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormG()">Enter</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupForm" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupForm()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Are you sure?</h2>
+                    <div class="switch">
+                      <input class="gone" type="radio" name="choice" id="yes" >
+                      <label class="ozone" for="yes">Yes<input class="fname" type="radio" name="desc" value="Yes" id="yesRadio" /></label>
+
+                      <input class="gone" type="radio" name="choice" id="no">
+                      <label class="ozone" for="no">No<input class="fname" type="radio" name="desc" value="No" id="noRadio" /></label>
+
+                      <span class="switchFilter"></span>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupForm()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              
+              <div class="centered-content">
+                <button class="buttrans" onclick="openPopupFormA()">A</button>
+              </div>
+              <div class="centered-content1">
+                <button class="buttrans" onclick="openPopupFormB()">B</button>
+              </div>
+              <div class="centered-content2">
+                <button class="buttrans" onclick="openPopupFormC()">C</button>
+              </div>
+              <div class="centered-content3">
+                <button class="buttrans" onclick="openPopupFormD()">D</button>
+              </div>
+              <div class="centered-content4">
+                <button class="buttrans" onclick="openPopupFormE()">E</button>
+              </div>
+              <div class="centered-content5">
+                <button class="buttrans" onclick="openPopupFormF()">F</button>
+              </div>
+              <div class="centered-content6">
+                <button class="buttrans" onclick="openPopupFormG()">G</button>
+              </div>
+              {% comment %} <div class="bgimage">
+                <img class="imagebg" src="{% static 'images/bg2.png' %}">
+              </div> {% endcomment %}
+            
+            </div>
+            <div class="outerdiv1">    
+              <div class="row">
+                </div>
+                <div class="secondbox12">        
+                  <h3 class="hole">Weekly Hole Counts</h3>  
+                  <div class="box123">
+                  </div>  
+                  
+                </div> 
+              </div>
+              <div class="secondbox13">        
+                <h3>Total Hole Counts</h3>    
+                <div class="box12">
+                </div>
+              </div> 
+              <div class="secondbox14">        
+                <h3>Hole Counts Zone Wize</h3>    
+                <div class="box111">
+                </div>
+              </div> 
+          </section>
+            <div>
+            </div>
+      
+            
+          </fieldset>
+          </div> 
+          
+        <script>
+
+                  
+
+{% comment %}           
+          adata = [{% for y in azone_val %} {{y}}, {% endfor %}];
+          bdata = [{% for x in azone_val %} {{x}}, {% endfor %}]; {% endcomment %}
+        firstt = {{ total_sum }}
+        secondd = {{ bzone_val }}
+        thirdd = {{ czone_val }}
+        fourr = {{ dzone_val }}
+        fivee = {{ ezone_val }}
+        sixx = {{ fzone_val }}
+        sevenn = {{ gzone_val }}
+        var options = {
+            series: [{
+            name: '0B zone',
+            data: [firstt, secondd, thirdd,fourr,fivee,sixx,sevenn,]
+          }],
+            chart: {
+            type: 'bar',
+            height: 220,
+            width: 580,
+            stacked: true,
+            animations: {
+              enabled: false 
+            },
+            toolbar: {
+              show: false
+            },
+            zoom: {
+              enabled: true
+            }
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: 'bottom',
+                offsetX: -10,
+                offsetY: 0
+              }
+            }
+          }],
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '40%',
+              borderRadius: 10,
+              dataLabels: {
+                enabled: false,
+                total: {
+                  enabled: false,
+                  style: {
+                    fontSize: '13px',
+                    fontWeight: 900
+                  }
+                }
+              }
+            },
+          },
+          xaxis: {
+            {% comment %} type: 'datetime', {% endcomment %}
+            categories: ['A','B','C','D','E','F','G',
+            ],
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+            axisBorder: {
+              show: false, // Hide the y-axis line
+            },
+            axisTicks: {
+              show: false, // Hide the y-axis ticks
+            },
+          },
+          grid: {
+            show: false, // Hide the background grid
+          },
+          legend: {
+            position: 'right',
+            offsetY: 40
+          },
+          fill: {
+            opacity: 1
+          },
+          colors: ['#42a9ac', '#42a9ac', '#42a9ac', '#1E7A5F', '#9B59B6', '#E74C3C', '#3498DB'] // Define custom colors for the bars
+
+          };
+  
+          var chart = new ApexCharts(document.querySelector(".box111"), options);
+          chart.render();
+
+
+
+        fi = {{ pietotal_sumA }}
+        se = {{ pietotal_sumB }}
+        th = {{ pietotal_sumC }}
+        fo = {{ pietotal_sumD }}
+        fie = {{ pietotal_sumE }}
+        si = {{ pietotal_sumF }}
+        ser = {{ pietotal_sumG }} 
+        
+        
+        var options = {
+            series: [fi, se, th, fo, fie,si,ser],
+            chart: {
+            width: 360,
+            type: 'pie',
+          },
+          labels: ['A', 'B', 'C', 'D', 'E','F','G'],
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }],
+          legend: {
+            labels: {
+              colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+            }
+          },
+          };
+  
+          var chart = new ApexCharts(document.querySelector(".box123"), options);
+          chart.render();
+
+
+        {% comment %} ProductionGraphData = [{% for y in production_graph %} {{y}}, {% endfor %}];
+        ScrapGraphData = [{% for h in scrap_graph %} {{h}}, {% endfor %}]; {% endcomment %}
+        ProductionGraphData = [20,40,63,75]
+        LiveProduction = [{% for m in last_production_values %} {{m}}, {% endfor %}];
+        LiveDefective= [{% for k in last_defective_values %} {{k}}, {% endfor %}];
+        LiveTarget= [{{ target }}];
+        LiveProductionLable = [{% for n in last_datetime_values %} '{{n}}', {% endfor %}];
+        var options = {
+          series: [{
+            name: "0B Lekage",
+            data: ProductionGraphData
+          },
+          {% comment %} {
+            name: "Scrap",
+            data: LiveDefective,
+            color:'#9400D3',
+          } {% endcomment %}
+          ],
+          chart: {
+            height: 220,
+            width: 580,
+            type: 'line',
+            animations: {
+              enabled: false 
+            },
+            toolbar: {
+              show: false,
+            },
+            zoom: {
+              enabled: false
+            }
+          },
+          annotations: {
+            yaxis: [{
+              {% comment %} y: LiveTarget, {% endcomment %}
+              {% comment %} borderColor: '#00E396', {% endcomment %}
+              
+            }],
+          },
+          
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            width:3,
+            curve: 'straight',
+        
+          },
+          
+          grid: {
+            show: false, // Hide the grid lines
+          },
+        
+          xaxis: {
+            type: 'time',
+            categories: ['10:00', '10:30', '11:00', '11:30',
+            '12:00', '01:00'
+          ],
+            {% comment %} categories: LiveProductionLable, {% endcomment %}
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+              formatter: function (value) {
+                // Format the Y-axis labels as integers
+                return Math.round(value);
+              },
+            },
+          },
+          legend: {
+            position: 'top',
+            offsetY: 0,
+            labels: {
+              colors: ['#FFFFFF'], // Set the colors for each legend item
+            },
+          },
+          tooltip: {
+            theme: 'dark',
+          },
+        };
+        
+        var chart = new ApexCharts(document.querySelector(".box12"), options);
+        chart.render();
+        </script>
+        <script src="{% static 'js/home.js' %}"></script>
+    </body>
+    
+    </html>
+    
+    
+    

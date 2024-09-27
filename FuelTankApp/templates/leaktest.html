@@ -1,0 +1,874 @@
+<DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+      <meta charset="UTF-8" />
+        
+      <title>Technoviz Automation</title>
+      {% load static %}
+      <link rel="shortcut icon" type="image/png" href="{% static 'images/Logo.png' %}">
+      <link rel="stylesheet" href="{% static 'css/leaktest.css' %}">
+      <!-- Boxicons CDN Link -->
+      <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+    
+      
+      <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/t-radar"></script>
+      {% comment %} <meta http-equiv="refresh" content="30">  {% endcomment %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <style>
+      .checkbox-wrapper-31:hover .check {
+        stroke-dashoffset: 0;
+      }
+    
+      .checkbox-wrapper-31 {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin-top:10px;
+      }
+      .checkbox-wrapper-31 .background {
+        fill: #ccc;
+        transition: ease all 0.6s;
+        -webkit-transition: ease all 0.6s;
+      }
+      .checkbox-wrapper-31 .stroke {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+        stroke-dashoffset: 100;
+        stroke-dasharray: 100;
+        transition: ease all 0.6s;
+        -webkit-transition: ease all 0.6s;
+      }
+      .checkbox-wrapper-31 .check {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        stroke-dashoffset: 22;
+        stroke-dasharray: 22;
+        transition: ease all 0.6s;
+        -webkit-transition: ease all 0.6s;
+      }
+      .checkbox-wrapper-31 input[type=checkbox] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        margin: 0;
+        opacity: 0;
+        -appearance: none;
+        -webkit-appearance: none;
+      }
+      .checkbox-wrapper-31 input[type=checkbox]:hover {
+        cursor: pointer;
+      }
+      .checkbox-wrapper-31 input[type=checkbox]:checked + svg .background {
+        fill: #6cbe45;
+      }
+      .checkbox-wrapper-31 input[type=checkbox]:checked + svg .stroke {
+        stroke-dashoffset: 0;
+      }
+      .checkbox-wrapper-31 input[type=checkbox]:checked + svg .check {
+        stroke-dashoffset: 0;
+      }
+    </style>
+    
+    <body>
+        <nav class="sidebar close">
+            <header>
+                <div class="image-text">
+                    <span class="image">
+                        <img src="{% static 'images/logo-.png'%}" alt="">
+                    </span>
+                    <div class="text logo-text">
+                        <span class="name">TechnoViz </span>
+                        <span class="profession">AUTOMATION</span>
+                    </div>
+                </div>
+                <i class='bx bx-chevron-right toggle'></i>
+            </header>
+    
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                      <li class="nav-link">
+                        <a href="{% url 'HomePage' %}">
+                          <i class='bx bx-detail icon'></i>
+                            <span class="text nav-text">0B Leakage Zone</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="{% url 'leaktestfunc' %}">
+                          <i class='bx bx-detail icon'></i>
+                            <span class="text nav-text">Fuel Tank Leak Test</span>
+                        </a>
+                       </li>
+                    <li class="nav-link">
+                 
+                        <a href="{% url 'ReportPage' %}">
+                        <i class="bx bx-pie-chart-alt-2 icon"></i>
+                          <span class="text nav-text">Report </span>
+                      </a>
+                    </li>
+                        <li class="nav-link">
+                            <a href="https://technovizautomation.com/">
+                                <i class='bx bx-question-mark icon'></i>
+                                <span class="text nav-text">About Us</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="bottom-content">
+    
+                    <li class="mode">
+                        <div class="sun-moon">
+                            <i class='bx bx-moon icon moon'></i>
+                            <i class='bx bx-sun icon sun'></i>
+                        </div>
+                        <span class="mode-text text">Dark mode</span>
+    
+                        <div class="toggle-switch">
+                            <span class="switch"></span>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    
+    
+        <section class="home">
+          <div class="formdiv">
+    
+            <h3 class="shift">Fuel Tank Leak Test </h3>
+            <div class="hondalogo">
+              <img class="image6" src="{% static 'images/logo(1).png' %}">
+            </div>
+            <div class="form-style-10">
+      
+                <form id="shiftForm1" method="POST" action="{% url 'Leaktestform' %}">
+                {% csrf_token %}
+                <div class="techlogo">
+                  <img class="image10" src="{% static 'images/Technoviz.png' %}">
+                </div>
+                <div class="navlogo">
+                  <img class="image2" src="{% static 'images/fuel-tank1.png' %}">
+                </div>
+                
+                <div class="inner-wrap">
+                  <label class="lableA">A (0B Weld) <input type="text" name="field1" id="Azone" readonly /></label>
+                  <label class="lableB">B (Seam Welding)<input type="text" name="field2" id="Bzone" readonly/></label>
+                  <label class="lableC">C (MFF Brazing)<input type="text" name="field3" id="Czone" readonly/></label>
+                  <label class="lableD1">D1 (PF/Fule Cock)<input type="text" name="field4" id="D1zone" readonly/></label> 
+                  <label class="lableD2">D2 (PR)<input type="text" name="field5" id="D2zone" readonly/></label>
+                  <label class="lableE">E (DP/BP Braz)<input type="text" name="field6" id="Ezone" readonly/></label>
+                  <label class="lableF">F (RR Patch spot)<input type="text" name="field7" id="Fzone" readonly/></label>
+                  <label class="lableG">G (Front stay spot) <input type="text" name="field8" id="Gzone" readonly/></label>
+                </div>
+                <div class="button-section">
+                  <input type="hidden" name="timeDifference" id="timeDifference" value="{{ checking }}">
+                  <button class="tub" onclick="openPopupForm(); return false;">Submit</button>
+                </div>
+                
+                <br>
+              </form>
+              <div id="popupFormA" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormA()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>0B Weld:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputA"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                      {% comment %} <input class="fname" type="text" name="desc" placeholder="Description" id="fnameInput" /> {% endcomment %}
+                    </div>   
+                    <button type="button" id="formfill2" onclick="submitPopupFormA()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormB" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormB()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>Seam Welding:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputB"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormB()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormC" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormC()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>MFF Brazing:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputC"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormC()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormD1" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormD1()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>PF/Fule Cock:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputD1"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormD1()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormD2" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormD2()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>PR:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputD2"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormD2()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormE" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormE()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>DP/BP Braz:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputE"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormE()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormF" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormF()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>RR Patch spot:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputF"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormF()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupFormG" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupFormG()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Fuel Tank Leak Test</h2>
+                    <div class="just">
+                      <label>Front stay spot:</lable>
+                        <div class="checkbox-wrapper-31">
+                          <input type="checkbox" id="fnameInputG"/>
+                          <svg viewBox="0 0 35.6 35.6">
+                            <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                            <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                            <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                          </svg>
+                        </div>
+                    </div>
+                    <button type="button" id="formfill2" onclick="submitPopupFormG()">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <div id="popupForm" class="popup">
+                <div class="popup-content">
+                  <span class="close-icon" onclick="closePopupForm()">&times;</span>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <h2>Do you want to save the changes?</h2>
+                    <div class="switch">
+                      <input class="gone" type="radio" name="choice" id="yes" onclick="submitPopupForm()" >
+                      <label class="ozone" for="yes">Yes<input class="fname" type="radio" name="desc" value="Yes" id="yesRadio" /></label>
+
+                      <input class="gone" type="radio" name="choice" id="no" onclick="closePopupForm()">
+                      <label class="ozone" for="no">No<input class="fname" type="radio" name="desc" value="No" id="noRadio" /></label>
+
+                      <span class="switchFilter"></span>
+                    </div>
+                    {% comment %} <button type="button" id="formfill2" onclick="submitPopupForm()">Submit</button> {% endcomment %}
+                  </form>
+                </div>
+              </div>
+
+              
+              <div class="centered-content">
+                <button class="buttrans" onclick="openPopupFormA()">A</button>
+              </div>
+              <div class="centered-content1">
+                <button class="buttrans" onclick="openPopupFormB()">B</button>
+              </div>
+              <div class="centered-content2">
+                <button class="buttrans" onclick="openPopupFormC()">C</button>
+              </div>
+              <div class="centered-content3">
+                <button class="buttrans" onclick="openPopupFormD1()">D1</button>
+              </div>
+              <div class="centered-content7">
+                <button class="buttrans" onclick="openPopupFormD2()">D2</button>
+              </div>
+              <div class="centered-content4">
+                <button class="buttrans" onclick="openPopupFormE()">E</button>
+              </div>
+              <div class="centered-content5">
+                <button class="buttrans" onclick="openPopupFormF()">F</button>
+              </div>
+              <div class="centered-content6">
+                <button class="buttrans" onclick="openPopupFormG()">G</button>
+              </div>
+            
+            </div>
+            <div>
+            </div>
+            <div class="outerdiv1">    
+              <div class="row">
+                </div>
+                <div class="secondbox12">        
+                  <h3>Leakage Data Zone Wize</h3>  
+                  <div class="box123">
+                  </div>  
+                  
+                </div> 
+              </div>
+              <div class="secondbox13">        
+                <h3>Total Leakage Data Counts</h3>    
+                <div class="box12">
+                </div>
+              </div> 
+              <div class="secondbox14">        
+                <h3>Weekly Leakage Data Count</h3>    
+                <div class="box111">
+                </div>
+              </div> 
+      
+            
+          </fieldset>
+          </div> 
+        </section>
+        <script>
+
+
+
+          function submitPopupForm() {
+            // Check the selected radio button
+            var yesRadio = document.getElementById("yes");
+            
+            if (yesRadio.checked) {
+              // If "Yes" is selected, submit the main form
+              document.getElementById("shiftForm1").submit();
+            } else {
+              // If "No" is selected, do nothing or provide feedback to the user
+              closePopupForm() ;
+            }
+          }
+
+
+          function openPopupForm() {
+            document.getElementById('popupForm').style.display = 'block';
+          }
+
+          // Function to close the popup form
+          function closePopupForm() {
+            document.getElementById('popupForm').style.display = 'none';
+          }
+    
+          function openPopupFormA() {
+            document.getElementById('popupFormA').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormA() {
+            document.getElementById('popupFormA').style.display = 'none';
+          }
+    
+          function submitPopupFormA() {
+            // Get the value entered in the "fname" input field
+            var fnameValueA = document.getElementById('fnameInputA');
+          
+            
+            // Check if the checkbox is checked
+       
+            var field11Value = fnameValueA.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Azone').value = field11Value;
+            
+            // Close the popup form
+            closePopupFormA();
+          }
+  
+    
+    
+          function openPopupFormB() {
+            document.getElementById('popupFormB').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormB() {
+            document.getElementById('popupFormB').style.display = 'none';
+          }
+    
+    
+          function submitPopupFormB() {
+            // Get the value entered in the "fname" input field
+            var fnameValueB = document.getElementById('fnameInputB');
+        
+            // Set the captured value in the "field11" input field
+            
+            var field11Value = fnameValueB.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Bzone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormB();
+          }
+    
+          function openPopupFormC() {
+            document.getElementById('popupFormC').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormC() {
+            document.getElementById('popupFormC').style.display = 'none';
+          }
+          
+          function submitPopupFormC() {
+            // Get the value entered in the "fname" input field
+            var fnameValueC = document.getElementById('fnameInputC');
+        
+            // Set the captured value in the "field11" input field
+           
+            var field11Value = fnameValueC.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Czone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormC();
+          }
+  
+
+          function openPopupFormD1() {
+            document.getElementById('popupFormD1').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormD1() {
+            document.getElementById('popupFormD1').style.display = 'none';
+          }
+
+          function submitPopupFormD1() {
+            // Get the value entered in the "fname" input field
+            var fnameValueD1 = document.getElementById('fnameInputD1');
+        
+            // Set the captured value in the "field11" input field
+            
+            var field11Value = fnameValueD1.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('D1zone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormD1();
+          }
+    
+          function openPopupFormD2() {
+            document.getElementById('popupFormD2').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormD2() {
+            document.getElementById('popupFormD2').style.display = 'none';
+          }
+    
+          function submitPopupFormD2() {
+            // Get the value entered in the "fname" input field
+            var fnameValueD2 = document.getElementById('fnameInputD2');
+        
+            // Set the captured value in the "field11" input field
+            
+            var field11Value = fnameValueD2.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('D2zone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormD2();
+          }
+    
+          function openPopupFormE() {
+            document.getElementById('popupFormE').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormE() {
+            document.getElementById('popupFormE').style.display = 'none';
+          }
+    
+    
+          function submitPopupFormE() {
+            // Get the value entered in the "fname" input field
+            var fnameValueE = document.getElementById('fnameInputE');
+        
+            // Set the captured value in the "field11" input field
+            var field11Value = fnameValueE.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Ezone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormE();
+          }
+    
+          function openPopupFormF() {
+            document.getElementById('popupFormF').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormF() {
+            document.getElementById('popupFormF').style.display = 'none';
+          }
+    
+    
+          function submitPopupFormF() {
+            // Get the value entered in the "fname" input field
+            var fnameValueF = document.getElementById('fnameInputF');
+        
+            // Set the captured value in the "field11" input field
+            var field11Value = fnameValueF.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Fzone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormF();
+          }
+    
+          function openPopupFormG() {
+            document.getElementById('popupFormG').style.display = 'block';
+          }
+        
+          // Function to close the popup form
+          function closePopupFormG() {
+            document.getElementById('popupFormG').style.display = 'none';
+          }
+    
+          function submitPopupFormG() {
+            // Get the value entered in the "fname" input field
+            var fnameValueG = document.getElementById('fnameInputG');
+        
+            // Set the captured value in the "field11" input field
+            var field11Value = fnameValueG.checked ? 'Yes' : 'No';
+            
+            // Set the value in the "field11" input field
+            document.getElementById('Gzone').value = field11Value;
+        
+            // Close the popup form
+            closePopupFormG();
+          } 
+          
+        {% comment %} firstt = {{ Agraph }}
+        secondd = {{ Bgraph }}
+        thirdd = {{ Cgraph }}
+        fourr = {{ Dgraph }}
+        fivee = {{ Egraph }}
+        sixx = {{ Fgraph }}
+        sevenn = {{ Ggraph }} {% endcomment %}
+        var options = {
+            series: [{
+            name: '0B zone',
+            data: [10, 15, 50,26,80,43,10,67,]
+          }],
+            chart: {
+            type: 'bar',
+            height: 220,
+            width: 580,
+            stacked: true,
+            animations: {
+              enabled: false 
+            },
+            toolbar: {
+              show: false
+            },
+            zoom: {
+              enabled: true
+            }
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: 'bottom',
+                offsetX: -10,
+                offsetY: 0
+              }
+            }
+          }],
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '40%',
+              borderRadius: 10,
+              dataLabels: {
+                enabled: false,
+                total: {
+                  enabled: false,
+                  style: {
+                    fontSize: '13px',
+                    fontWeight: 900
+                  }
+                }
+              }
+            },
+          },
+          xaxis: {
+            {% comment %} type: 'datetime', {% endcomment %}
+            categories: ['A','B','C','D1','D2','E','F','G',
+            ],
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+            axisBorder: {
+              show: false, // Hide the y-axis line
+            },
+            axisTicks: {
+              show: false, // Hide the y-axis ticks
+            },
+          },
+          grid: {
+            show: false, // Hide the background grid
+          },
+          legend: {
+            position: 'right',
+            offsetY: 40
+          },
+          fill: {
+            opacity: 1
+          },
+          colors: ['#42a9ac', '#42a9ac', '#42a9ac', '#1E7A5F', '#9B59B6', '#E74C3C', '#3498DB', '#3498DB'] // Define custom colors for the bars
+
+          };
+  
+        var chart = new ApexCharts(document.querySelector(".box111"), options);
+        chart.render();
+
+
+        var options = {
+            series: [44, 55, 13, 43, 22,15,40,45],
+            chart: {
+            width: 360,
+            type: 'pie',
+          },
+          labels: ['A', 'B', 'C', 'D1','D1', 'E','F','G'],
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }],
+          legend: {
+            labels: {
+              colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff','#ffffff'],
+            }
+          },
+          };
+  
+          var chart = new ApexCharts(document.querySelector(".box123"), options);
+          chart.render();
+
+
+        {% comment %} ProductionGraphData = [{% for y in production_graph %} {{y}}, {% endfor %}];
+        ScrapGraphData = [{% for h in scrap_graph %} {{h}}, {% endfor %}]; {% endcomment %}
+        ProductionGraphData = [20,40,63,75]
+        LiveProduction = [{% for m in last_production_values %} {{m}}, {% endfor %}];
+        LiveDefective= [{% for k in last_defective_values %} {{k}}, {% endfor %}];
+        LiveTarget= [{{ target }}];
+        LiveProductionLable = [{% for n in last_datetime_values %} '{{n}}', {% endfor %}];
+        var options = {
+          series: [{
+            name: "0B Lekage",
+            data: ProductionGraphData
+          },
+          {% comment %} {
+            name: "Scrap",
+            data: LiveDefective,
+            color:'#9400D3',
+          } {% endcomment %}
+          ],
+          chart: {
+            height: 220,
+            width: 580,
+            type: 'line',
+            animations: {
+              enabled: false 
+            },
+            toolbar: {
+              show: false,
+            },
+            zoom: {
+              enabled: false
+            }
+          },
+          annotations: {
+            yaxis: [{
+              {% comment %} y: LiveTarget, {% endcomment %}
+              {% comment %} borderColor: '#00E396', {% endcomment %}
+              
+            }],
+          },
+          
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            width:3,
+            curve: 'straight',
+        
+          },
+          
+          grid: {
+            show: false, // Hide the grid lines
+          },
+        
+          xaxis: {
+            type: 'time',
+            categories: ['10:00', '10:30', '11:00', '11:30',
+            '12:00', '01:00'],
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                colors: '#ffffff',
+              },
+              formatter: function (value) {
+                // Format the Y-axis labels as integers
+                return Math.round(value);
+              },
+            },
+          },
+          legend: {
+            position: 'top',
+            offsetY: 0,
+            labels: {
+              colors: ['#FFFFFF'], // Set the colors for each legend item
+            },
+          },
+          tooltip: {
+            theme: 'dark',
+          },
+        };
+        
+        var chart = new ApexCharts(document.querySelector(".box12"), options);
+        chart.render();
+
+        </script>
+        <script src="{% static 'js/leaktest.js' %}"></script>
+    </body>
+    
+    </html>
+    
+    
+    

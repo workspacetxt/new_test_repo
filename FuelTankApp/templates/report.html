@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Sidebar Menu HTML CSS | CodingNepal</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/report.css' %}">
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
+
+    
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      
+    </style>  
+</head>
+  <body>
+    <nav class="sidebar close">
+      <header>
+          <div class="image-text">
+              <span class="image">
+                  <img src="{% static 'images/logo-.png'%}" alt="">
+              </span>
+              <div class="text logo-text">
+                  <span class="name">TechnoViz </span>
+                  <span class="profession">AUTOMATION</span>
+              </div>
+          </div>
+          <i class='bx bx-chevron-right toggle'></i>
+      </header>
+
+      <div class="menu-bar">
+        <div class="menu">
+            <ul class="menu-links">
+              <li class="nav-link">
+                <a href="{% url 'HomePage' %}">
+                  <i class='bx bx-detail icon'></i>
+                    <span class="text nav-text">0B Leakage Zone</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="{% url 'leaktestfunc' %}">
+                  <i class='bx bx-detail icon'></i>
+                    <span class="text nav-text">Fuel Tank Leak Test</span>
+                </a>
+               </li>
+            <li class="nav-link">
+                <a href="{% url 'ReportPage' %}">
+                <i class="bx bx-pie-chart-alt-2 icon"></i>
+                  <span class="text nav-text">Report </span>
+              </a>
+            </li>
+                <li class="nav-link">
+                    <a href="https://technovizautomation.com/">
+                        <i class='bx bx-question-mark icon'></i>
+                        <span class="text nav-text">About Us</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+          <div class="bottom-content">
+
+              <li class="mode">
+                  <div class="sun-moon">
+                      <i class='bx bx-moon icon moon'></i>
+                      <i class='bx bx-sun icon sun'></i>
+                  </div>
+                  <span class="mode-text text">Dark mode</span>
+
+                  <div class="toggle-switch">
+                      <span class="switch"></span>
+                  </div>
+              </li>
+
+          </div>
+
+      </div>
+
+  </nav>
+  <section class="home">
+    <div class="formdiv">
+      <div class="report">  
+          <form method="POST" action="{% url 'ReportData' %}" onsubmit="return validateSelection();">
+                          {% csrf_token %}
+                          {% comment %} <h1>Select Report Period</h1> {% endcomment %}
+                          
+                          <p> Select Duration </p>
+                          <select name="deviceselection" id="myList2" onchange="select1">
+                            <option> Select Station </option>
+                            <option value="model1" > 0B Lekage Zone </option>
+                            <option value="model2"> Fuel Tank Leak Test </option>
+                        </select>
+                        <br>
+                          <input type="radio" name="name1" value="valu1" id="radio1" onclick="disableFields(false)">
+                          <select name="start2" id="myList" onchange="report()">
+                            
+                              <option value="week" > Last One Week </option>
+                              <option value="month"> Last 1 Month </option>
+                              <option value="half_year"> Last 6 Month </option>
+                              <option value="year"> Last 12 Month </option>
+                          </select>
+                          <br>
+                          <br>
+                      
+                          <input type="radio" name="name1" value="valu2" id="radio2" onclick="disableFields(true)">
+                          <label for="report">Start Date:</label>
+                          <input type="date" name="start"  required>  <br> <lable class="to">to: &nbsp; &nbsp;</lable>
+                          <label id="end" for="report">End Date:</label>
+                          <input type="date" name="end"  required> 
+                          <br>
+                          
+                          <br> 
+                          <button type="submit" id="but" value="" >Submit</button>
+                      </form>
+                      <div id="popupDiv2" class="popup" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close" onclick="closePopup2()">&times;</span>
+                            <p>Please Select Any Model for Report</p>
+                        </div>
+                    </div>
+
+                    <div id="popupDiv3" class="popup" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close" onclick="closePopup2()">&times;</span>
+                            <p>Please Select Any Model for Report</p>
+                        </div>
+                    </div>
+                      
+          </div>
+
+    </div>
+
+    {% if weekdays %}
+
+    <div class="emailtab my-table">
+      <div class="tbl-container">
+        {% if sectionname == "model1" %}
+          <table class="table" id="table">
+              <thead>
+                  <tr>
+                      <th>A Zone</th>
+                      <th>B Zone</th>
+                      <th>C Zone</th>
+                      <th>D Zone</th>
+                      <th>E Zone</th>
+                      <th>F Zone</th>
+                      <th>G Zone</th>
+                      <th> DateTime </th>
+                  </tr>
+              </thead>
+              <tbody id="tableBody">
+                  {% for j in weekdays %}
+                  <tr>
+                      <td>{{j.azone}}</td>
+                      <td>{{j.bzone}}</td>
+                      <td>{{j.czone}}</td>
+                      <td>{{j.dzone}}</td>
+                      <td>{{j.ezone}}</td>
+                      <td>{{j.fzone}}</td>
+                      <td>{{j.gzone}}</td>
+                      <td>{{ j.DateTime|date:"F d, Y" }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+
+          {% else %}
+
+            <table class="table" id="table">
+                <thead>
+                    <tr>
+                        <th>A Zone</th>
+                        <th>B Zone</th>
+                        <th>C Zone</th>
+                        <th>D1 Zone</th>
+                        <th>D2 Zone</th>
+                        <th>E Zone</th>
+                        <th>F Zone</th>
+                        <th>G Zone</th>
+                        <th> DateTime </th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    {% for j in weekdays %}
+                    <tr>
+                        <td>{{j.azone}}</td>
+                        <td>{{j.bzone}}</td>
+                        <td>{{j.czone}}</td>
+                        <td>{{j.d1zone}}</td>
+                        <td>{{j.d2zone}}</td>
+                        <td>{{j.ezone}}</td>
+                        <td>{{j.fzone}}</td>
+                        <td>{{j.gzone}}</td>
+                        <td>{{ j.DateTime|date:"F d, Y" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% endif %}
+      </div>
+      {% if weekdays %}
+      <button class="down_but" type="submit" id="but" value=""><a href="{% url 'Exporttopdf' %}"><i class='bx bxs-file-pdf'></i></a></button>
+      {% endif %}
+  </div>
+  {% endif %}
+
+
+    
+
+  </section>
+
+    <script src="{% static 'js/report.js' %}"></script>
+    <script>
+        function validateSelection() {
+            const selection = document.getElementById("myList2").value;
+            if (selection === "Select Station") {
+                document.getElementById("popupDiv2").style.display = "block";
+                return false; // Prevents the form from submitting
+            }
+            if (!radio1.checked && !radio2.checked) {
+                document.getElementById("popupDiv3").style.display = "block";
+                return false // Prevent the form from submitting
+              }
+            return true; // Allows the form to be submitted
+        }
+
+        function closePopup2() {
+            document.getElementById("popupDiv2").style.display = "none";
+        }
+        
+function closePopup3() {
+    document.getElementById("popupDiv3").style.display = "none";
+  }
+  
+    </script>
+  </body>
+</html>
